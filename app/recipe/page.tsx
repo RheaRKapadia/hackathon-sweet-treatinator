@@ -5,28 +5,47 @@ import { useEffect, useState } from 'react';
 export default function RecipePage() {
   const searchParams = useSearchParams();
   const [recipe, setRecipe] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
   const treat = searchParams.get('treat');
   const character = searchParams.get('character');
 
   useEffect(() => {
     const fetchRecipe = async () => {
-      const res = await fetch('/api/generateRecipe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ treatType: treat, character }),
-      });
+      if (!treat || !character) return;
 
-      const data = await res.json();
-      setRecipe(data.recipe);
+      try {
+        const res = await fetch('/api/generateRecipe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ treatType: treat, character }),
+        });
+
+        if (!res.ok) {
+          throw new Error('API response not OK');
+        }
+
+        const data = await res.json();
+        setRecipe(data.recipe);
+      } catch (err: any) {
+        console.error('Error fetching recipe:', err);
+        setError('Failed to generate recipe.');
+      } finally {
+        setLoading(false);
+      }
     };
 
-    if (treat && character) fetchRecipe();
+    fetchRecipe();
   }, [treat, character]);
+
+  if (loading) return <p>Generating your sweet treat...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <main className="p-8">
-      <h2 className="text-2xl mb-4">Here’s your magical treat, {character}!</h2>
-      <pre className="bg-yellow-100 p-4 whitespace-pre-wrap">{recipe || "Generating..."}</pre>
+      <h2 className="text-2xl mb-4">Here's your treat, {character}!</h2>
+      <pre className="bg-black-100 p-4 whitespace-pre-wrap">{recipe}</pre>
     </main>
   );
 }
