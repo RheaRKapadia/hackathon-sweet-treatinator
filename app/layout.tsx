@@ -1,5 +1,8 @@
 // app/layout.tsx
 import './globals.css';
+import DynamicLayout from './dynamic-layout';
+import "@fontsource/inter"; // Defaults to weight 400 (normal)
+
 
 export const metadata = {
   title: 'Sweet Treatinator',
@@ -9,8 +12,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-pink-50 text-gray-800 font-sans">
-        <main className="max-w-4xl mx-auto p-6">{children}</main>
+      <body>
+        <DynamicLayout>{children}</DynamicLayout>
       </body>
     </html>
   );

@@ -1,6 +1,65 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Typewriter from './typewriter';
+
+const punMap = {
+    Brownie: [
+      "I’m here to pawsitively ruin your diet.",
+
+      "This brownie is so fudgy, it should be arrested.",
+
+      "You’re bearly gonna believe how good this is.",
+
+      "Let’s get bakin’, honey!",
+
+      "I knead dessert like you knead dough.",
+
+      "Warning: These cookies are un-bear-ably addictive.",
+
+      "Is it just me, or is this pie berry suspicious?",
+
+      "This recipe is un-beAR-ably delicious.",
+
+      "This cake is un-beAR-able!"
+    ],
+    Mochi: [
+      "I’ve got purr-fection right here.",
+
+      "Don’t paw-nder—just eat the mochi!",
+      
+      "This dessert is claw-some. No regrets.",
+      
+      "You’re feline lucky I shared this recipe.",
+      
+      "Life’s short. Lick the spoon.",
+      
+      "I’m not kitten—this is the best donut ever.",
+      
+      "Macarons? More like meow-carons.",
+      
+      "Fur real, stop kneading compliments."
+    ],
+    Puddie: [
+      "I scoop you’re gonna love this!",
+
+      "Ice cream? More like nice cream!",
+      
+      "Let’s puddi-cate your sweet tooth.",
+      
+      "This mousse is panda-monium in your mouth.",
+      
+      "Chill out—dessert is sundae best.",
+      
+      "Oops… did I whisk all the cream?",
+      
+      "Custard? I cust-ard you to try it!",
+      
+       "You are sundaes away from crazy."
+    ],
+
+  };
 
 export default function RecipePage() {
   const searchParams = useSearchParams();
@@ -8,18 +67,26 @@ export default function RecipePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const treat = searchParams.get('treat');
+    const mood = searchParams.get('mood');
+    const flavor = searchParams.get('flavor');
+    const adventure = searchParams.get('adventure');
+    const region = searchParams.get('region');
+    const time = searchParams.get('time');
+
+
   const character = searchParams.get('character');
+
+  
 
   useEffect(() => {
     const fetchRecipe = async () => {
-      if (!treat || !character) return;
+      if (!mood || !character || !flavor || !adventure || !region || !time) return;
 
       try {
         const res = await fetch('/api/generateRecipe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ treatType: treat, character }),
+          body: JSON.stringify({ character, mood, flavor, adventure, region, time }),
         });
 
         if (!res.ok) {
@@ -37,15 +104,96 @@ export default function RecipePage() {
     };
 
     fetchRecipe();
-  }, [treat, character]);
+  }, [character, mood, flavor, adventure, region, time]);
 
-  if (loading) return <p>Generating your sweet treat...</p>;
+//   if (loading) return <p>Generating your sweet treat...</p>;
+if (loading) {
+
+  
+    const selectedCharacter = character || 'teddy'; // fallback character
+    const punArray = punMap[selectedCharacter as keyof typeof punMap] || ["Cooking up your recipe..."];
+
+    const pun = punArray[Math.floor(Math.random() * punArray.length)];
+  
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-pink-200 text-center  p-8">
+        <Image
+          src={`/${selectedCharacter}.png`}
+          alt={`${selectedCharacter} mascot`}
+          className='animate-bounce'
+          width={250}
+          height={250}
+          priority
+        />
+        <Typewriter className="mt-6 text-xl italic text-gray-700 animate-pulse" text={pun}
+        />
+      </div>
+    );
+  }
+  
+
   if (error) return <p className="text-red-500">{error}</p>;
 
-  return (
-    <main className="p-8">
-      <h2 className="text-2xl mb-4">Here's your treat, {character}!</h2>
-      <pre className="bg-black-100 p-4 whitespace-pre-wrap">{recipe}</pre>
-    </main>
+
+return (
+    // bg-[url('/RecipeBg.png')] bg-cover bg-no-repeat
+    <div className="relative min-h-screen  bg-center p-8 flex flex-col justify-between">
+      <div>
+        <h1 style={{ WebkitTextStroke: '4px #9DB6D8', textShadow: '0px 4px 4px #00000040' }} className=" [font-family:'SoftMarshmallow',Helvetica] font-normal text-[#691d39] text-8xl tracking-[-2.56px] leading-[140.8px]  text-[#691D39] font-bold text-center">
+          Your sweet treat recipe is...
+        </h1>
+        <h2 className="text-[28px] text-center text-[#454545]">
+          Tell us your cravings. Get a recipe. Easy as pie!
+        </h2>
+  
+        {/* Only show <pre> when recipe is ready */}
+        {recipe && (
+          <pre className="bg-white/10 backdrop-blur-md border border-[#C2B5CF] rounded p-[40px] w-[65%] mx-auto mt-4 whitespace-pre-wrap ">
+            {recipe}
+          </pre>
+        )}
+      </div>
+  
+      {/* Images and button */}
+      <img src={'/mochi.png'} className='absolute scale-x-[-1] w-[160px] top-[200px]' />
+      <img src={'/brownie.png'} className='absolute w-[300px] bottom-[40%] right-[20px]' />
+      <img src={'/puddie.png'} className='absolute  scale-x-[-1] w-[160px] bottom-[12%] left-[60px]' />
+  
+      <button onClick={() => window.location.href = '/'} className="w-[18%] h-[10%] mt-4 bg-[#691d39] rounded-lg border-4 border-[#9db6d8] shadow-[0px_4px_4px_#00000040] hover:bg-[#8a254f] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center px-4 py-0 mx-auto">
+        <span className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-white text-[40px] leading-[60px] whitespace-nowrap">
+          Restart &lt;3
+        </span>
+      </button>
+
+    </div>
   );
+  
 }
+
+
+
+//   return (
+//     <div className="min-h-screen bg-[url('/RecipeBg.png')] bg-cover p-8 flex flex-col justify-between">
+//     <div>
+//         <h1 style={{ WebkitTextStroke: '1px #9DB6D8' }} className="[font-family:'SoftMarshmallow',Helvetica] text-[75px] text-[#691D39] font-bold text-center">
+//         Your sweet treat recipe is...
+//         </h1>
+//         <h2 className="text-[28px] text-center text-[#454545]">
+//         Tell us your cravings. Get a recipe. Easy as pie!
+//         </h2>
+//         <pre className="bg-white/10 backdrop-blur-md border border-[#C2B5CF] rounded p-[40px] w-[65%] mx-auto mt-4 whitespace-pre-wrap radius-[16px]">
+//         {recipe}
+//         </pre>
+//     </div>
+//     <img src={'/mochi3.png'} className='w-[160px] top-[20px]'></img>
+//     <img src={'/brownie3.png'} className='w-[300px]'></img>
+//     <img src={'/puddie.png'} className='w-[106px]'></img>
+
+//     <button className="w-[18%] h-[10%] mt-4 bg-[#691d39] rounded-lg border-4 border-[#9db6d8] shadow-[0px_4px_4px_#00000040] hover:bg-[#8a254f] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center px-4 py-0 mx-auto">
+//         <span className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-white text-[40px] leading-[60px] whitespace-nowrap">
+//         Restart &lt;3
+//         </span>
+//     </button>
+//     </div>
+
+//   );

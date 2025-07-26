@@ -5,26 +5,120 @@ import { useState } from 'react';
 export default function QuestionPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [treat, setTreat] = useState('');
-
   const character = searchParams.get('character');
 
+  const [mood, setMood] = useState('');//*
+  const [flavor, setFlavor] = useState('');
+  const [adventure, setAdventure] = useState('');
+  const [region, setRegion] = useState('');
+  const [time, setTime] = useState('');//*
+
+  const moodOptions = ["Soft & Chewy", "Crunchy & Crispy","Cold & Refreshing"];//*
+  const flavorOptions = ["Chocolatey", "Fruity", "Creamy"];
+  const adventureOptions = ["ooh, Show me something unique", "hmm, Something I don't usually eat","Classic sweets please!!"];
+  const timeOptions = [ "Fun project", "Quick & simple "]//*
+
+
   const goToRecipe = () => {
-    if (treat) router.push(`/recipe?treat=${treat}&character=${character}`);
+    if (mood && flavor && adventure && region && time){
+    router.push(`/recipe?character=${character}&mood=${encodeURIComponent(mood)}&flavor=${encodeURIComponent(flavor)}&adventure=${encodeURIComponent(adventure)}&region=${encodeURIComponent(region)}&time=${encodeURIComponent(time)}`);
+      } else {
+  alert('Please answer all questions!');
+  }
   };
 
   return (
-    <main className="p-8">
-      <h2 className="text-2xl mb-4">Hi {character}! What kind of sweet treat do you want?</h2>
-      <input
-        value={treat}
-        onChange={(e) => setTreat(e.target.value)}
-        placeholder="e.g., chocolate cake, strawberry pie..."
-        className="border p-2 mb-4 w-full"
-      />
-      <button onClick={goToRecipe} className="bg-purple-500 text-white px-4 py-2 rounded">
-        Get My Recipe!
-      </button>
-    </main>
-  );
-}
+    <main className="p-8 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-normal text-[#691d39] mb-6 [font-family:'SoftMarshmallow',Helvetica]">
+        Hi {character}! Answer the questions to get your sweet treat recipe!
+        </h2>
+        
+        {/*Mood */}
+        <div className="mb-6">
+          <p className="font-medium text-[#691d39] mb-2">What are you in the mood for?</p>
+          <div className="flex flex-col gap-2">
+            {moodOptions.map((option)=> (
+              <button
+              key={option}
+              onClick={() => setMood(option)}
+              className={`p-2 rounded bg-pink-300 text-white text-left ${mood === option ? 'ring-2 ring-white' :''}`}
+            >
+              {option}
+            </button>
+            ))}
+          </div>
+        </div>
+
+        {/*Flavor */}
+        <div className="mb-6">
+          <p className="font-medium text-[#691d39] mb-2"> what flavor are you craving the most?</p>
+          <div className="flex flex-col gap-2">
+            {flavorOptions.map((option)=> (
+              <button
+              key={option}
+              onClick={()=> setFlavor(option)}
+              className={`p-2 rounded bg-pink-300 text-white text-left ${flavor === option ? 'ring-2 ring-white' :''}`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/*Adventure*/}
+        <div className="mb-6">
+          <p className="font-medium text-[#691d39] mb-2">How adventurous do you feel?</p>
+          <div className="flex flex-col gap-2">
+            {adventureOptions.map((option) => (
+              <button
+               key={option}
+               onClick={() => setAdventure(option)}
+               className={`p-2 rounded bg-pink-300 text-white text-left ${adventure === option ? 'ring-2 ring-white' :''}`}
+            >
+              {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Region */}
+        <div className="mb-6">
+          <p className="font-medium text-[#691d39] mb-2">Which region are you most curious about today?</p>
+          <input
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            placeholder="e.g., East Asian, South Asian, South American, Surprise me!"
+            className="p-2 rounded bg-pink-300 text-white placeholder-white/70 w-full"
+          />
+        </div>
+
+        {/*Time*/}
+        <div className="mb-6">
+          <p className="font-medium text-[#691d39] mb-2">Want something quick and easy or something fun to make?</p>
+          <div className="flex flex-col gap-2">
+            {timeOptions.map((option) => (
+              <button
+              key={option}
+              onClick={() => setTime(option)}
+              className={`p-2 rounded bg-pink-300 text-white text-left ${time === option ? 'ring-2 ring-white': ''}`}
+              >
+                {option}
+                </button>
+            ))}
+          </div>
+        </div>
+        
+        {/*Submit*/}
+        <button
+          onClick={goToRecipe}
+          disabled={!character}
+          className="flex items-center justify-center gap-2 px-6 py-4 mx-auto mt-4 bg-[#691d39] rounded-lg border-4 border-solid border-[#9db6d8] shadow-[0px_4px_4px_#00000040] hover:bg-[#8a254f] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          >
+            <span className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-white text-[32px] leading-[40px] whitespace-nowrap">
+              Get My Recipe!
+            </span>
+        </button>
+
+        </main>
+      );
+    }

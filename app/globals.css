@@ -1,8 +1,20 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components; 
+@tailwind utilities;
+
+
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: rgb(203, 24, 24)
 }
 
 @theme inline {
@@ -10,17 +22,53 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+  }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #fa8dd4;
+    --foreground: #4f4551;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+
+/* @font-face {
+  font-family: 'SoftMarshmallow';
+  src: url('/public/fonts/SoftMarshmallow.woff') format('woff'),
+       url('/public/fonts/SoftMarshmallow.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+} */
+
+
+
+@font-face {
+  font-family: 'SoftMarshmallow';
+  src: url('../public/fonts/SoftMarshmallow.woff') format('woff2'),url('../public/fonts/SoftMarshmallow.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('../public/fonts/Inter-2/Inter-VariableFont_opsz,wght.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+main {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  /* Arial, Helvetica, sans-serif;  */
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
 }
