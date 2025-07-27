@@ -22,21 +22,21 @@ export default function HomePage() {
       value: "Puddie",
       description: "Loves puddings, ice-cream, custards, & mousse! She's chill, sweet and a bit clumsy",
       imageAlt: "Puddie character",
-      imageSrc: "puddie.png", //digital human intelligence drawing for puddie
+      imageSrc: "Puddie.png", //digital human intelligence drawing for puddie
     },
     {
       name: "Mochi",
       value: "Mochi",
       description: "Loves soft, chewy, squishy & bouncy treats! She's playful sassy, and a little spoiled.",
       imageAlt: "Mochi character",
-      imageSrc: "mochi.png", //digital human intelligence drawing for mochi
+      imageSrc: "Mochi.png", //digital human intelligence drawing for mochi
     },
     {
       name: "Brownie",
       value: "Brownie",
       description: "Loves warm & gooey brownies, cookies, cakes, & pies! She's a big cuddly baker.",
       imageAlt: "Brownie character",
-      imageSrc: "brownie.png", //digital human intelligence drawing for brownie
+      imageSrc: "Brownie.png", //digital human intelligence drawing for brownie
     },
   ];
 
