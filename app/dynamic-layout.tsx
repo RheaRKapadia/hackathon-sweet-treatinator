@@ -58,7 +58,7 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
       }}
       />
       <div 
-      className="fixed -z-10 bg-[url('/bg-2.PNG')]"
+      className="fixed -z-10 bg-[url('/bg-2.png')]"
       style={{
         ...getBackgroundStyle(0.08),
         backgroundSize: 'cover',
