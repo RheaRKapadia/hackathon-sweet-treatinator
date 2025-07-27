@@ -130,7 +130,10 @@ export default function RecipePage() {
 
         {recipe && (
           <pre className="bg-white/10 backdrop-blur-md border border-[#C2B5CF] rounded-lg px-20 py-10 w-[65%] mx-auto mt-4 whitespace-pre-wrap text-lg">
+            <div className='border-image-box'>
             {recipe}
+            </div>
+            
           </pre>
         )}
       </div>
