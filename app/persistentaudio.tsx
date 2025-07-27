@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Volume2, VolumeX } from 'lucide-react' // optional icons (install `lucide-react`)
+import { Volume2, VolumeX } from 'lucide-react' 
 
 export default function PersistentAudio() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -9,7 +9,8 @@ export default function PersistentAudio() {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.5 // set a default volume
+      // default volume
+      audioRef.current.volume = 0.5 
     }
   }, [])
 
@@ -20,7 +21,7 @@ export default function PersistentAudio() {
     if (isPlaying) {
       audio.pause()
     } else {
-      // Start from 0.5s if audio hasn't played yet
+      // Start from 5sec if audio hasn't played yet (the beginning of the song is awkward)
       if (audio.currentTime < 5) {
         audio.currentTime = 5
       }
@@ -33,6 +34,7 @@ export default function PersistentAudio() {
   }
 
   return (
+    // button for toggling on/off the music
     <div style={{
       position: 'fixed',
       bottom: '3rem',

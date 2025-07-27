@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { jsPDF } from 'jspdf';
 import Typewriter from './typewriter';
 
+
+// loading time puns
 const punMap: Record<string, string[]> = {
   Brownie: [
     "I’m here to pawsitively ruin your diet.",
@@ -40,6 +42,7 @@ const punMap: Record<string, string[]> = {
   ],
 };
 
+// get all quiz answers from url body
 export default function RecipePage() {
   const searchParams = useSearchParams();
 
@@ -58,6 +61,7 @@ export default function RecipePage() {
     const fetchRecipe = async () => {
       if (!mood || !character || !flavor || !adventure || !region || !time) return;
 
+    //   call ai and input user quiz answers
       try {
         const res = await fetch('/api/generateRecipe', {
           method: 'POST',
@@ -80,6 +84,7 @@ export default function RecipePage() {
     fetchRecipe();
   }, [character, mood, flavor, adventure, region, time]);
 
+//   function for downloading recipe
   const handlePdfDownload = () => {
     const doc = new jsPDF();
     const margin = 10;
@@ -92,6 +97,7 @@ export default function RecipePage() {
     doc.save('recipe.pdf');
   };
 
+//   loading page while ai is generating recipe
   if (loading) {
     const punArray = punMap[character] || ['Cooking up your recipe...'];
     const pun = punArray[Math.floor(Math.random() * punArray.length)];
@@ -118,18 +124,23 @@ export default function RecipePage() {
   return (
     <div className="relative min-h-screen bg-center p-8 flex flex-col justify-between">
       <div>
+        {/* title */}
         <h1
           style={{ WebkitTextStroke: '4px #9DB6D8', textShadow: '0px 4px 4px #00000040' }}
           className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-[#691d39] text-8xl tracking-[-2.56px] leading-[140.8px] text-center"
         >
           Your sweet treat recipe is...
         </h1>
+
+        {/* subtitle */}
         <h2 className="text-[28px] text-center text-[#454545]">
           Tell us your cravings. Get a recipe. Easy as pie!
         </h2>
 
+        {/* container where recipe is populated */}
         {recipe && (
           <pre className="bg-white/10 backdrop-blur-md border border-[#C2B5CF] rounded-lg px-20 py-10 w-[65%] mx-auto mt-4 whitespace-pre-wrap text-lg">
+            {/* add custom border with our desserts*/}
             <div className='border-image-box'>
             {recipe}
             </div>
@@ -143,7 +154,7 @@ export default function RecipePage() {
       <img src="/Brownie.png" className="absolute w-[180px] bottom-[40%] right-[12%]" alt="Brownie" />
       <img src="/Puddie.png" className="absolute scale-x-[-1] w-[160px] bottom-[3%] left-[12%]" alt="Puddie" />
 
-      {/* Buttons */}
+      {/* Button: restart */}
       <div className="flex justify-center items-center gap-4 mt-8">
         <button
           onClick={() => window.location.href = '/'}
@@ -153,7 +164,8 @@ export default function RecipePage() {
             Restart &lt;3
           </span>
         </button>
-
+        
+        {/* Button: Download recipe */}
         <button
           onClick={handlePdfDownload}
           className="bg-[#691d39] rounded-lg border-4 border-[#9db6d8] shadow-md hover:bg-[#8a254f] transition-colors duration-200 px-6 py-3"

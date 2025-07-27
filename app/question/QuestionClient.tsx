@@ -9,7 +9,7 @@ export default function QuestionClient() {
   const searchParams = useSearchParams();
   const character = searchParams.get('character');
 
-  // Define your option arrays here ⬇️
+  //Array of preferences
   const moodOptions = ['Soft & Chewy', 'Crunchy & Crispy', 'Cold & Refreshing'];
   const flavorOptions = ['Chocolatey', 'Fruity', 'Creamy'];
   const adventureOptions = [
@@ -19,7 +19,7 @@ export default function QuestionClient() {
   ];
   const timeOptions = ['Fun project', 'Quick & simple'];
 
-  // Your useState hooks
+//  set constants
   const [mood, setMood] = useState('');
   const [flavor, setFlavor] = useState('');
   const [adventure, setAdventure] = useState('');
@@ -39,6 +39,7 @@ export default function QuestionClient() {
     router.push(`/recipe?${params.toString()}`);
   };
 
+//   making sure all questions are answered before submitting
   const goToRecipe = () => {
     if (mood && flavor && adventure && region && time){
     router.push(`/recipe?character=${character}&mood=${encodeURIComponent(mood)}&flavor=${encodeURIComponent(flavor)}&adventure=${encodeURIComponent(adventure)}&region=${encodeURIComponent(region)}&time=${encodeURIComponent(time)}`);
@@ -50,7 +51,7 @@ export default function QuestionClient() {
 
   return (
     <main className=" flex flex-wrap justify-between gap-15 p-4 max-w-[65%] mx-auto">
-      
+    {/* title */}
     <h2 className="text-7xl font-normal text-center w-full text-[#691d39] mt-4 [text-shadow:0px_4px_4px_#00000040]
     [-webkit-text-stroke:4px_#9db6d8]
     [font-family:'SoftMarshmallow',Helvetica]">
@@ -144,6 +145,7 @@ export default function QuestionClient() {
           </span>
       </button>
     </div>
+    {/* fixed character on the right */}
     <div>
     <div className="fixed right-[15%] z-10 ">
       <Image

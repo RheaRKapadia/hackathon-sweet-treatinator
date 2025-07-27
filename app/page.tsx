@@ -15,28 +15,28 @@ export default function HomePage() {
     if (character) router.push(`/question?character=${character}`);
   };
 
-  // Character data for mapping
+  // Character data for mapping - Puddie, Mochi, and Brownie
   const bakingBuddies = [
     {
       name: "Puddie",
       value: "Puddie",
       description: "Loves puddings, ice-cream, custards, & mousse! She's chill, sweet and a bit clumsy",
       imageAlt: "Puddie character",
-      imageSrc: "Puddie.png", //digital human intelligence drawing for puddie
+      imageSrc: "Puddie.png", 
     },
     {
       name: "Mochi",
       value: "Mochi",
       description: "Loves soft, chewy, squishy & bouncy treats! She's playful sassy, and a little spoiled.",
       imageAlt: "Mochi character",
-      imageSrc: "Mochi.png", //digital human intelligence drawing for mochi
+      imageSrc: "Mochi.png", 
     },
     {
       name: "Brownie",
       value: "Brownie",
       description: "Loves warm & gooey brownies, cookies, cakes, & pies! She's a big cuddly baker.",
       imageAlt: "Brownie character",
-      imageSrc: "Brownie.png", //digital human intelligence drawing for brownie
+      imageSrc: "Brownie.png", 
     },
   ];
 
@@ -78,7 +78,7 @@ export default function HomePage() {
                   className={`cursor-pointer transition-all ${
                     character === buddy.value ? 'scale-110' : 'hover:scale-105'
                   }`}
-                  style={{ width: 'fit-content' }} // Ensures container fits image
+                  style={{ width: 'fit-content' }} 
                 >
                   <img
                     className={`max-w-[200px] h-auto object-contain ${
@@ -124,7 +124,7 @@ export default function HomePage() {
             {/* Bottom Text */}
             <div className="[font-family:'Inter',Helvetica] absolute h-[37px] top-[592px] left-[163px] [font-family:'Inter-Light',Helvetica] font-light text-[#444444] text-[34px] tracking-[-0.68px] leading-[37.4px] whitespace-nowrap">
               <Typewriter text="Ready to bake happiness? Start the quiz!"
-              speed={30} // Faster than default 50
+              speed={30} 
               className="italic animate-pulse"
               />
             </div>

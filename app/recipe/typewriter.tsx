@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// set parameters as text, speed, and className
 interface TypewriterProps {
   text: string;
   speed?: number;
@@ -11,7 +12,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text, speed = 50, className }) 
 
   useEffect(() => {
     let i = 0;
-
+    // go through the text one by one
     const interval = setInterval(() => {
       i++;
       setDisplayedText(text.substring(0, i));

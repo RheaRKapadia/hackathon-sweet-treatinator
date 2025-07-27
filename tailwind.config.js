@@ -1,21 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//   content: [
-//     "./app/**/*.{js,ts,jsx,tsx}",
-//     "./pages/**/*.{js,ts,jsx,tsx}",
-//     "./components/**/*.{js,ts,jsx,tsx}",
-//   ],
-//   theme: {
-//     extend: {
-//       fontFamily: {
-//         soft: ['SoftMarshmallow', 'sans-serif'],
-//       },
-//       // Add other extensions here
-//     },
-//   },
-//   plugins: [],
-// }
-
 
 module.exports = {
   darkMode: ["class"],
@@ -37,17 +20,17 @@ module.exports = {
     extend: {
       // Colors from Figma config (converted to raw values)
       colors: {
-        border: "#e5e7eb", // Example conversion - replace with your actual values
+        border: "#e5e7eb", 
         input: "#f3f4f6",
         ring: "#9ca3af",
         background: "#ffffff",
         foreground: "#111827",
         primary: {
-          DEFAULT: "#691d39", // Using your pink color from earlier
+          DEFAULT: "#691d39", // pink
           foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#9db6d8", // Using your blue color from earlier
+          DEFAULT: "#9db6d8", // blue
           foreground: "#111827",
         },
         destructive: {
@@ -78,7 +61,7 @@ module.exports = {
       },
       // Font families from both configs
       fontFamily: {
-        soft: ['SoftMarshmallow', 'sans-serif'], // From your project
+        soft: ['SoftMarshmallow', 'sans-serif'], 
         inter: ['Inter', 'sans-serif'],
         sans: [ // From Figma
           "ui-sans-serif",

@@ -6,11 +6,13 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// get user selections from URL
 export async function POST(req: Request) {
   console.log("Request received");
   const body = await req.json();
   const { character,mood, flavor, adventure, region, time } = body;
 
+  // AI prompt engineering section
   if (!process.env.OPENAI_API_KEY) {
     console.error("Missing API key");
     return NextResponse.json({ error: "Missing API key" }, { status: 500 });
@@ -24,8 +26,9 @@ export async function POST(req: Request) {
       model: "gpt-4",
       messages: [{ role: "user", content: prompt }],
     });
+    // for debugging
     console.log("Completion received");
-
+    // get recipe from ai and return to the next page, otherwise throw an error
     const recipe = completion.choices[0].message.content;
     return NextResponse.json({ recipe });
   } catch (err) {

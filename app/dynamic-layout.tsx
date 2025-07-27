@@ -13,6 +13,7 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // keep track of user mouse position
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -24,6 +25,7 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
       });
     };
 
+    // listen for changes
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
     handleResize();
@@ -34,6 +36,7 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
     };
   }, []);
 
+  // set how much the background will move
   const getBackgroundStyle = (speed: number) => ({
     transform: `translate(
       ${(mousePosition.x / windowSize.width) * 30 * speed}%,
@@ -44,6 +47,8 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
   return (
     <div className="min-h-screen text-[#454545] relative overflow-x-hidden">
       {/* Background Layers */}
+
+      {/* background */}
       <div 
         className="fixed -z-20 bg-[url('/bg-1.png')]"
         style={{
@@ -57,6 +62,8 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
         opacity: 1
       }}
       />
+
+      {/* middleground */}
       <div 
       className="fixed -z-10 bg-[url('/bg-2.png')]"
       style={{
@@ -71,7 +78,6 @@ export default function DynamicLayout({ children }: { children: React.ReactNode 
       }}
     />
       
-      {/* Your Content */}
       <main className="max-w-8xl relative z-10">
         {children}
       </main>
