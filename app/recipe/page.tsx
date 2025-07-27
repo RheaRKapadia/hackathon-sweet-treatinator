@@ -113,7 +113,7 @@ export default function RecipePage() {
 
         const data = await res.json();
         setRecipe(data.recipe);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Error fetching recipe:', err);
         setError('Failed to generate recipe.');
       } finally {
