@@ -136,9 +136,9 @@ export default function RecipePage() {
       </div>
 
       {/* Characters */}
-      <img src="/mochi.png" className="absolute scale-x-[-1] w-[160px] top-[13%] left-[12%]" alt="Mochi" />
-      <img src="/brownie.png" className="absolute w-[180px] bottom-[40%] right-[12%]" alt="Brownie" />
-      <img src="/puddie.png" className="absolute scale-x-[-1] w-[160px] bottom-[3%] left-[12%]" alt="Puddie" />
+      <img src="/Mochi.png" className="absolute scale-x-[-1] w-[160px] top-[13%] left-[12%]" alt="Mochi" />
+      <img src="/Brownie.png" className="absolute w-[180px] bottom-[40%] right-[12%]" alt="Brownie" />
+      <img src="/Puddie.png" className="absolute scale-x-[-1] w-[160px] bottom-[3%] left-[12%]" alt="Puddie" />
 
       {/* Buttons */}
       <div className="flex justify-center items-center gap-4 mt-8">
