@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const prompt = `Act cute, use playful yet professional language. Generate a ${time} dessert recipe. ${character} is in the mood for something ${mood}, with ${flavor} flavor profile. ${character} is looking for ${adventure} from this region: ${region}. Find the perfect dessert recipe that fits all of these needs. Please include how much time is required for the recipe.`;
+    const prompt = `Act cute, use playful yet professional language. Do not use emojis, use keyboard characters such as :) or <3.  Generate a ${time} dessert recipe. ${character} is in the mood for something ${mood}, with ${flavor} flavor profile. ${character} is looking for ${adventure} from this region: ${region}. Find the perfect dessert recipe that fits all of these needs. Please include how much time is required for the recipe.`;
     console.log("Prompt:", prompt);  
 
     const completion = await openai.chat.completions.create({

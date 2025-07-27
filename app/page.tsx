@@ -34,7 +34,7 @@ export default function HomePage() {
     {
       name: "Brownie",
       value: "Brownie",
-      description: "Loves warm & gooy brownies, cookies, cakes, & pies! She's a big cuddly baker.",
+      description: "Loves warm & gooey brownies, cookies, cakes, & pies! She's a big cuddly baker.",
       imageAlt: "Brownie character",
       imageSrc: "brownie.png", //digital human intelligence drawing for brownie
     },
@@ -45,7 +45,7 @@ export default function HomePage() {
       <div className="w-[1400px] h-[916px] relative">
         {/* Title */}
         <div className="inline-flex gap-2 absolute top-[47px] left-[227px] flex-col items-start">
-          <h1 className="relative w-[986px] h-[126px] mt-[-5.00px] ml-[-4.00px] [text-shadow:0px_4px_4px_#00000040] [-webkit-text-stroke:4px_#9db6d8] [font-family:'SoftMarshmallow',Helvetica] font-normal text-[#691d39] text-9xl tracking-[-2.56px] leading-[140.8px] whitespace-nowrap">
+          <h1 className="relative w-full h-[126px] mt-[-5.00px] ml-[-4.00px] [text-shadow:0px_4px_4px_#00000040] [-webkit-text-stroke:4px_#9db6d8] [font-family:'SoftMarshmallow',Helvetica] font-normal text-[#691d39] text-9xl tracking-[-2.56px] leading-[140.8px] whitespace-nowrap">
             Sweet Treatinator
             {/* 🍭 */}
           </h1>

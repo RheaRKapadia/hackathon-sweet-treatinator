@@ -65,6 +65,44 @@ main {
   /* Arial, Helvetica, sans-serif;  */
 }
 
+.border-image-box {
+  position: relative;
+  padding: 80px 20px; /* Adjust side padding as needed */
+  background-color: rgba(255, 255, 255, 0);
+  /* border-radius: 16px; */
+  overflow: hidden;
+}
+
+/* Top image border */
+.border-image-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 81px; /* or however tall your border image is */
+  width: 100%;
+  background-image: url('/border.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+}
+
+/* Bottom image border */
+.border-image-box::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 81px;
+  width: 100%;
+  background-image: url('/border.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+}
+
+
+
+
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }

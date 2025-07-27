@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Typewriter from './typewriter';
 
+import { jsPDF } from "jspdf";
+
+
 const punMap = {
     Brownie: [
       "I’m here to pawsitively ruin your diet.",
@@ -76,7 +79,22 @@ export default function RecipePage() {
 
   const character = searchParams.get('character');
 
-  
+
+  const handlePdfDownload = () => {
+    const doc = new jsPDF();
+
+    const margin = 10;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const wrapWidth = pageWidth - margin * 2;
+
+    const recipeContent = recipe
+    doc.setFontSize(10); 
+
+    const wrappedText = doc.splitTextToSize(recipeContent, wrapWidth);
+    doc.text(wrappedText, 10, 10);
+    doc.save("recipe.pdf");
+  };
+
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -110,7 +128,7 @@ export default function RecipePage() {
 if (loading) {
 
   
-    const selectedCharacter = character || 'teddy'; // fallback character
+    const selectedCharacter = character || 'Mochi'; // fallback character
     const punArray = punMap[selectedCharacter as keyof typeof punMap] || ["Cooking up your recipe..."];
 
     const pun = punArray[Math.floor(Math.random() * punArray.length)];
@@ -148,22 +166,51 @@ return (
   
         {/* Only show <pre> when recipe is ready */}
         {recipe && (
-          <pre className="bg-white/10 backdrop-blur-md border border-[#C2B5CF] rounded p-[40px] w-[65%] mx-auto mt-4 whitespace-pre-wrap ">
+          <pre className="bg-white/10  backdrop-blur-md border border-[#C2B5CF] rounded-lg pl-[80px] pr-[80px] pt-[40px] pb-[40px] w-[65%] mx-auto mt-4 whitespace-pre-wrap ">
+            <div className='border-image-box'>
             {recipe}
+            </div>
+            
           </pre>
         )}
+
+      {/* {recipe && (
+        <div className="border-image-box w-[65%] mx-auto mt-4 text-white text-lg">
+          <pre className="whitespace-pre-wrap">
+            {recipe}
+          </pre>
+        </div>
+      )} */}
+
+
       </div>
+      
   
       {/* Images and button */}
-      <img src={'/mochi.png'} className='absolute scale-x-[-1] w-[160px] top-[200px]' />
-      <img src={'/brownie.png'} className='absolute w-[300px] bottom-[40%] right-[20px]' />
-      <img src={'/puddie.png'} className='absolute  scale-x-[-1] w-[160px] bottom-[12%] left-[60px]' />
-  
-      <button onClick={() => window.location.href = '/'} className="w-[18%] h-[10%] mt-4 bg-[#691d39] rounded-lg border-4 border-[#9db6d8] shadow-[0px_4px_4px_#00000040] hover:bg-[#8a254f] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center px-4 py-0 mx-auto">
-        <span className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-white text-[40px] leading-[60px] whitespace-nowrap">
-          Restart &lt;3
-        </span>
-      </button>
+      <img src={'/mochi.png'} className='absolute scale-x-[-1] w-[160px] top-[13%] left-[12%]' />
+      <img src={'/brownie.png'} className='absolute w-[180px] bottom-[40%] right-[12%]' />
+      <img src={'/puddie.png'} className='absolute  scale-x-[-1] w-[160px] bottom-[3%] left-[12%]' />
+      <div className="flex justify-center items-center gap-4 mt-4">
+        <button
+          onClick={() => window.location.href = '/'}
+          className="h-[10%] bg-[#691d39] rounded-lg border-4 border-[#9db6d8] shadow-[0px_4px_4px_#00000040] hover:bg-[#8a254f] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center px-4 py-0"
+        >
+          <span className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-white text-[40px] leading-[60px] whitespace-nowrap">
+            Restart &lt;3
+          </span>
+        </button>
+
+        <button
+          onClick={handlePdfDownload}
+          className="h-[10%] bg-[#691d39] rounded-lg border-4 border-[#9db6d8] shadow-[0px_4px_4px_#00000040] hover:bg-[#8a254f] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center justify-center px-4 py-0"
+        >
+          <span className="[font-family:'SoftMarshmallow',Helvetica] font-normal text-white text-[40px] leading-[60px] whitespace-nowrap">
+            Download as PDF
+          </span>
+        </button>
+      </div>
+
+
 
     </div>
   );
